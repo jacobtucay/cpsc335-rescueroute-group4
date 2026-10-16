@@ -1,0 +1,4 @@
+volunteer_id,name,vehicle_capacity,area,available_from,available_until,max_pickups
+V-301,Maria,30,Central,13:00,17:00,3
+V-302,James,25,North,13:00,16:00,2
+V-303,Priya,35,East,13:30,18:00,3

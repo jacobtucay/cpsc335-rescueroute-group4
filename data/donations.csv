@@ -1,0 +1,12 @@
+donation_id,donor_name,food_type,quantity,ready_time,expiry_time,pickup_area
+D-1001,Campus Cafe,prepared,20,13:00,17:00,Central
+D-1002,Fresh Mart,produce,30,13:05,20:00,North
+D-1003,Sunrise Bakery,bakery,15,13:10,18:00,East
+D-1004,Event Catering Co,prepared,25,13:15,14:30,Central
+D-1005,Corner Deli,prepared,10,13:20,14:20,West
+D-1006,Dairy Depot,dairy,18,13:25,15:00,South
+D-1007,Green Grocer,produce,22,13:30,14:45,North
+D-1008,Pizza Place,prepared,12,13:35,15:30,East
+D-1009,Canned Goods Drive,canned,40,13:40,23:00,South
+D-1010,Harbor Seafood,seafood,8,13:45,15:00,West
+D-1011,Late Night Bakery,bakery,10,13:50,13:50,Central

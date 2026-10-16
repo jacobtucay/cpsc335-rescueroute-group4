@@ -1,0 +1,5 @@
+recipient_id,name,accepted_food_types,capacity,area,closing_time
+R-201,Community Shelter,prepared;bakery,40,Central,17:00
+R-202,Northside Food Pantry,produce;canned;bakery,60,North,19:00
+R-203,Westside Community Fridge,prepared;dairy;produce,25,West,16:00
+R-204,Eastside Family Center,prepared;bakery;dairy,30,East,15:30
