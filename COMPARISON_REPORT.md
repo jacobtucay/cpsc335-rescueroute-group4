@@ -1,37 +1,27 @@
-# FIFO vs Greedy Comparison Report
+FIFO vs Greedy Comparison Report
 
-*RescueRoute educational prototype, simulated data only.*
+As seen in the table below, the two strategies were tested using the same input data (11 donations, 4 recipients, 3 volunteers) and the same matching rules. The only difference between the two strategies was the priority logic: while FIFO prioritizes donations in the order of their arrival, greedy prioritizes the nearest expiry, followed by a higher quantity and the earliest arrival time.
 
-## Setup
-
-Both strategies used the same sample data: 11 donations, 4 recipients, and 3 volunteers (`data/` folder). Both use the same matching rules. The only difference is the order in which donations are handled.
-
-- **FIFO:** arrival order.
-- **Greedy:** earliest expiry first, then larger quantity, then earlier arrival.
-
-## Results
+Results
 
 | Metric | FIFO | Greedy |
 |---|---|---|
-| Donations received | 11 | 11 |
-| Donations assigned | 6 | 6 |
-| Donations unassigned | 5 | 5 |
-| Food quantity rescued (units) | 118 | 102 |
-| Food quantity at risk (units) | 92 | 108 |
+| Donations assigned | 6 of 11 | 6 of 11 |
+| Food rescued (units) | 118 | 102 |
+| Food at risk (units) | 92 | 108 |
 | Urgent rescue rate | 50.0% (3 of 6) | 83.3% (5 of 6) |
-| Recipient capacity utilization | 76.1% | 65.8% |
-| Volunteer capacity utilization | 75.0% | 75.0% |
+| Recipient capacity used | 76.1% | 65.8% |
+| Volunteer capacity used | 75.0% | 75.0% |
 
-## What changed and why
+Changes and Impact
 
-Under FIFO, the long-lasting donations D-1001 (expires 5:00 PM) and D-1002 (expires 8:00 PM) arrived first, so they took shelter and pantry space and used Maria's early trips. By the time the urgent donations were processed, D-1007 (produce, expires 2:45 PM) could not be delivered in time and D-1008 (prepared, expires 3:30 PM) found no recipient with enough room left.
+Using FIFO, the first two donations to arrive (D-1001 and D-1002) could be scheduled first due to their availability until 5:00 PM and 8:00 PM, respectively. However, they consumed the recipients’ capacity and the volunteers’ time, resulting in two donations not being rescued despite their urgency (D-1007, which had an expiry time at 2:45 PM, and D-1008, which was available until 3:30 PM).
 
-Under greedy, the urgent donations were handled first, so D-1007 and D-1008 were both rescued. The cost was that D-1001 and D-1002 were deferred and then found no room left. Those two donations were larger (20 and 30 units), so greedy rescued fewer total units even though it saved more urgent food.
 
-Four other donations (D-1003 through D-1006) were still assigned under both strategies, but to different recipients or volunteers, because the earlier choices changed which space and drivers were still free.
+Using a greedy approach, the donations with the nearest expiry time (D-1007) and followed by a higher quantity (D-1008) were scheduled before the ones arriving earlier but with a smaller quantity (D-1001) and leaving a later expiry time (D-1002). Accordingly, D-1007 and D-1008 were both rescued, while D-1001 and D-1002 could not be accommodated. As a result, the greedy method rescued fewer units of food compared to FIFO.
 
-Three donations failed under both strategies for reasons the processing order cannot fix: D-1009 (40 units, more than any vehicle or remaining space allows), D-1010 (no recipient accepts seafood), and D-1011 (already expired).
+The donations assigned according to the two strategies (D-1003-D-1006) were identical for the two strategies. Additionally, three donations (D-1009, D-1010, and D-1011) could not be scheduled using either strategy; D-1009 was too large for all volunteers, D-1010 had no recipient interested in seafood, and D-1011 was expired by the time of pickup.
 
-## Takeaway
+Conclusion
 
-Greedy is better at its stated goal: protecting food that is about to expire. It is not better on every measure. It rescued less total food and showed starvation, where donations that arrived first never got a turn. A real system would need a balance, such as an aging rule or reserved capacity for long-lasting food.
+While the greedy approach was evidently more efficient regarding the donations with nearby expiry times, it resulted in fewer donations being rescued overall and created a starvation scenario, where the donations with earlier arrival times were constantly pushed below the newer donations. A better approach to donation scheduling would be to consider time-sensitive factors such as an aging factor increasing the priority of a donation the longer it has been in the system.
